@@ -29,6 +29,11 @@ p {
   font-size: 1.1em;
   text-shadow: 0 1px 0 rgba(0,0,0, .25);
 }
+
+.error {
+  color: red;
+}
+
 form {
   width: 60%;
   background: white;

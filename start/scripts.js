@@ -11,6 +11,22 @@ document.addEventListener("DOMContentLoaded", () => {
     filterLabel.appendChild(filterCheckbox);
     div.appendChild(filterLabel);
     mainDiv.insertBefore(div, ul);
+
+    let inviteList = localStorage.getItem("names") ?
+        JSON.parse(localStorage.getItem("names")) : [];
+
+    localStorage.setItem('names', JSON.stringify(inviteList));
+    const data = JSON.parse(localStorage.getItem('names'));
+
+    const filterName = (nameToRemove) => {
+        let newList = JSON.parse(localStorage.getItem("names"));
+        let inviteList = newList.filter((name) => {
+            return nameToRemove !== name;
+        });
+        localStorage.setItem("names", JSON.stringify(inviteList));
+        return inviteList;
+    };
+
     filterCheckbox.addEventListener("change" , (e) => {
         const isConfirmed = filterCheckbox.checked;
         const list = ul.children;
@@ -30,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
     });
+
 
     const createListItem = (name) => {
         const createElement = (elementName, property, value) => {
@@ -93,6 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
             const action = button.textContent.toLowerCase();
             const nameActions = {
                 remove: () => {
+                    const span = li.firstElementChild;
+                    const name = span.textContent;
+                    filterName(name);
                     ul.removeChild(li);
                 },
                 edit: () => {

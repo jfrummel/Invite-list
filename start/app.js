@@ -44,11 +44,26 @@ document.addEventListener("DOMContentLoaded", ()  => {
     form.addEventListener("submit", (e) => {
         e.preventDefault();
         const name = input.value;
-        const li = createListItem(name);
-        ul.appendChild(li);
-        inviteList.push(name);
-        localStorage.setItem("names", JSON.stringify(inviteList));
-        input.value = "";
+        let inviteList = JSON.parse(localStorage.getItem("names"));
+        if (inviteList) {
+            for (let i = 0; i < inviteList.length; i++) {
+                let li = inviteList[i];
+                if (name === li) {
+                    alert("Name already added");
+                    input.value = "";
+                    return;
+                }
+            }
+            if (input.value === "") {
+                alert("Please add a name");
+            } else {
+                const li = createListItem(name);
+                ul.appendChild(li);
+                inviteList.push(name);
+                localStorage.setItem("names", JSON.stringify(inviteList));
+                input.value = "";
+            }
+        }
     });
 
     ul.addEventListener("click", (e) => {

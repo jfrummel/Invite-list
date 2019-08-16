@@ -38,18 +38,18 @@ document.addEventListener("DOMContentLoaded", () => {
             return element;
         };
 
-        const appendToLi = (elementName, property, value) => {
-            const element = createElement(elementName, property, value);
-            li.appendChild(element);
-            return element;
-        };
-        const li = document.createElement("li");
-        appendToLi("span", "textContent", name);
-        appendToLi("label", "textContent", "Confirmed")
-            .appendChild(createElement("input", "type", "checkbox"));
-        appendToLi("button", "textContent", "Edit");
-        appendToLi("button", "textContent", "Remove");
-        return li;
+    const appendToLi = (elementName, property, value) => {
+        const element = createElement(elementName, property, value);
+        li.appendChild(element);
+        return element;
+    };
+    const li = document.createElement("li");
+    appendToLi("span", "textContent", name);
+    appendToLi("label", "textContent", "Confirmed")
+        .appendChild(createElement("input", "type", "checkbox"));
+    appendToLi("button", "textContent", "Edit");
+    appendToLi("button", "textContent", "Remove");
+    return li;
     };
 
     form.addEventListener("submit", (e) => {

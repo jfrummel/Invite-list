@@ -72,7 +72,6 @@ document.addEventListener("DOMContentLoaded", ()  => {
             const li = button.parentNode;
             const ul = li.parentNode;
             const action = button.textContent.toLowerCase();
-
             const nameActions = {
                 remove: () => {
                     const span = li.firstElementChild;
@@ -85,13 +84,44 @@ document.addEventListener("DOMContentLoaded", ()  => {
                     input.type = "text";
                     const span = li.firstElementChild;
                     input.value = span.textContent;
+                    const name = input.value;
+                    console.log(input.value);
+                    console.log(data);
+                    filterName(name);
                     li.insertBefore(input, span);
+                    li.removeChild(span);
                     button.textContent = "Save";
+                },
+                save: () => {
+                    const span = document.createElement("span");
+                    const input = li.firstElementChild;
+                    span.textContent = input.value;
+
+                    let name = input.value;
+                    let inviteList = JSON.parse(localStorage.getItem("names"));
+                    for (let i = 0; i < inviteList.length; i++) {
+                        let item = inviteList[i];
+                        if (item === name) {
+                            alert("Name already added");
+                        } else {
+                            inviteList.push(name);
+                            localStorage.setItem("names", JSON.stringify(inviteList));
+                            console.log(inviteList);
+                            li.insertBefore(span, input);
+                            li.removeChild(input);
+                            return;
+                        }
+                    }
+
+                    button.textContent = "Edit";
+
                 }
             };
-            nameActions[action]();
+                nameActions[action]();
         }
+
     });
+
 
     data.map((name) => {
      const li = createListItem(name);

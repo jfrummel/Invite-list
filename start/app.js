@@ -96,30 +96,25 @@ document.addEventListener("DOMContentLoaded", ()  => {
                     const span = document.createElement("span");
                     const input = li.firstElementChild;
                     span.textContent = input.value;
-
-                    let name = input.value;
+                    li.insertBefore(span, input);
+                    let name = span.textContent;
                     let inviteList = JSON.parse(localStorage.getItem("names"));
-                    for (let i = 0; i < inviteList.length; i++) {
-                        let item = inviteList[i];
-                        if (item === name) {
-                            alert("Name already added");
-                        } else {
-                            inviteList.push(name);
-                            localStorage.setItem("names", JSON.stringify(inviteList));
-                            console.log(inviteList);
-                            li.insertBefore(span, input);
-                            li.removeChild(input);
-                            return;
-                        }
+                    if (!name) {
+                        alert("Please add name");
+                        li.removeChild(span);
+                        input.value = name;
+
+                    } else {
+                        inviteList.push(name);
+                        localStorage.setItem("names", JSON.stringify(inviteList));
+                        console.log(inviteList);
+                        li.removeChild(input);
+                        button.textContent = "Edit";
                     }
-
-                    button.textContent = "Edit";
-
                 }
             };
                 nameActions[action]();
         }
-
     });
 
 
